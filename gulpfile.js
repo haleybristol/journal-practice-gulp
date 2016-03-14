@@ -18,19 +18,19 @@ gulp.task('jsBrowserify', ['concatInterface'] , function() {
     .pipe(gulp.dest('./build/js'));
 });
 
-// gulp.task("minifyScripts", ["jsBrowserify"], function(){
-//   return gulp.src("./build/js/app.js")
-//     .pipe(uglify())
-//     .pipe(gulp.dest("./build/js"));
-// });
+gulp.task("minifyScripts", ["jsBrowserify"], function(){
+  return gulp.src("./build/js/app.js")
+    .pipe(uglify())
+    .pipe(gulp.dest("./build/js"));
+});
 
 
-gulp.task("clean", ["jsBrowserify"], function(){
+gulp.task("clean", ["minifyScripts"], function(){
   return del(['tmp']);
 });
 
 gulp.task("watch", function(){
-	console.log("Watching scss files for modifications");
+	console.log("Watching js files for modifications");
 	gulp.watch('js/*.js', ["clean"]);
 });
 
